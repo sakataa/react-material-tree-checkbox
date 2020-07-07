@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
+import Container from '@material-ui/core/Container';
 import TreeViewCheckBox from './components';
 
 const sampleData = [
@@ -61,6 +62,8 @@ const sampleData = [
 export const App = () => {
   const [dataList, setDataList] = useState([...sampleData]);
   const [selectedIds, setSelectedIds] = useState([1, 11, 2]);
+  const [selectedItems, setSelectedItems] = useState([]);
+  const [flattenedTreeData, setFlattenedTreeData] = useState([]);
 
   const handleCheckTreeItem = (
     selectedItemIds,
@@ -68,35 +71,55 @@ export const App = () => {
     flattenedTreeData
   ) => {
     setSelectedIds(selectedItemIds);
+    setSelectedItems(selectedItems);
+    setFlattenedTreeData(flattenedTreeData);
     console.log('selectedItemIds: ', selectedItemIds);
     console.log('selectedItems: ', selectedItems);
     console.log('flattenedTreeData: ', flattenedTreeData);
   };
 
-  const style = {
-    textAlign: 'center',
-  };
-
   return (
-    <Grid container spacing={3}>
-      <Grid item xs={6}>
-        <Paper>
-          <TreeViewCheckBox
-            data={dataList}
-            onCheck={handleCheckTreeItem}
-            idField="id"
-            nameField="name"
-            childrenFieldName="children"
-            selectedIds={selectedIds}
-          />
-        </Paper>
+    <Container maxWidth="xl">
+      <Grid container spacing={3}>
+        <Grid item xs={6}>
+          <Paper>
+            <TreeViewCheckBox
+              data={dataList}
+              onCheck={handleCheckTreeItem}
+              idField="id"
+              nameField="name"
+              childrenFieldName="children"
+              selectedIds={selectedIds}
+            />
+          </Paper>
+        </Grid>
+        <Grid item xs={6}>
+          <Paper style={{ padding: 15 }}>
+            <h4>Tree Information</h4>
+            <h5>Selected Ids</h5>
+            <div>{selectedIds.map((x) => x).join(', ')}</div>
+
+            <h5>Selected Items</h5>
+            <ul>
+              {selectedItems.map((x) => {
+                return (
+                  <li key={x.id}>
+                    Id: {x.id} - Name: {x.name}
+                  </li>
+                );
+              })}
+            </ul>
+
+            <h5>Flattened Data</h5>
+            <ul>
+              {flattenedTreeData.map((x) => {
+                return <li key={x.id}>{JSON.stringify(x)}</li>;
+              })}
+            </ul>
+          </Paper>
+        </Grid>
       </Grid>
-      <Grid item xs={6}>
-        <Paper>
-          <h4>Tree Information</h4>
-        </Paper>
-      </Grid>
-    </Grid>
+    </Container>
   );
 };
 
