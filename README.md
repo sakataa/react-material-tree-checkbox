@@ -1,4 +1,4 @@
-# react-metarial-tree-checkbox
+# react-material-tree-checkbox
 A react component present tree view with checkbox, using material-ui
 
 ## Screenshot
