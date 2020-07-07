@@ -5,17 +5,20 @@
   "main": "index.js",
   "scripts": {
     "start": "babel-node ./config-utils/devServer.js",
-    "build-vendors": "babel-node ./config-utils/buildVendors.js",
     "build-dev": "babel-node ./config-utils/buildDev.js",
     "build-pro": "babel-node ./config-utils/buildPro.js",
+    "build-component": "babel-node ./config-utils/buildComponent.js",
     "analyze-bundle": "babel-node ./config-utils/analyzeBundle.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/sakataa/react-material-tree-checkbox.git"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "react treeview checkbox",
+    "material-ui tree view checkbox"
+  ],
+  "author": "tien.tran",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/sakataa/react-material-tree-checkbox/issues"
@@ -38,6 +41,7 @@
     "babel-loader": "^8.1.0",
     "clean-webpack-plugin": "^3.0.0",
     "html-webpack-plugin": "^4.3.0",
+    "uglifyjs-webpack-plugin": "^2.2.0",
     "webpack": "^4.43.0",
     "webpack-bundle-analyzer": "^3.8.0",
     "webpack-cli": "^3.3.12",

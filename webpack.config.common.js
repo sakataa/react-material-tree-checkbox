@@ -26,7 +26,7 @@ module.exports = {
     chunkFilename: '[name].bundle.js',
   },
   target: 'web',
-  plugins: [new CleanWebpackPlugin(cleanOptions)],
+  // plugins: [new CleanWebpackPlugin(cleanOptions)],
   module: {
     rules: [
       {
@@ -37,17 +37,5 @@ module.exports = {
         },
       },
     ],
-  },
-  optimization: {
-    splitChunks: {
-      chunks: 'all',
-      cacheGroups: {
-        default: {
-          minChunks: 2,
-          priority: -20,
-          reuseExistingChunk: true,
-        },
-      },
-    },
   },
 };

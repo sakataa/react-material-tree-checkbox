@@ -1,5 +1,5 @@
 import webpack from 'webpack';
-import config from '../webpack.vendor.config';
+import config from '../webpack.config.component';
 import {
   chalkError,
   chalkSuccess,
@@ -10,7 +10,9 @@ import {
 process.env.NODE_ENV = 'production';
 
 console.log(
-  chalkProcessing('Generating vendor bundle. This will take a moment...')
+  chalkProcessing(
+    'Generating minified bundle for Component. This will take a moment...'
+  )
 );
 
 webpack(config).run((error, stats) => {
@@ -36,7 +38,7 @@ webpack(config).run((error, stats) => {
   // if we got this far, the build succeeded.
   console.log(
     chalkSuccess(
-      'Vendor bundle is compiled in production mode in /dist/vendors'
+      "Your app is compiled in production mode in /dist. It's ready to roll!"
     )
   );
 
