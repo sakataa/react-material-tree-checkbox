@@ -17,8 +17,8 @@ const TreeViewCheckBoxList = (props) => {
   const { classes, dataSource, onCheck, expandedIds } = props;
 
   const handleChange = (evt) => {
-    const { id, name, checked } = evt.target;
-    onCheck({ id, name, checked });
+    const { id, name, checked, level } = evt.target;
+    onCheck({ id, name, checked, level });
   };
 
   if (!expandedIds?.length) {

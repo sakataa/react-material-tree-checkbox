@@ -14,21 +14,29 @@ const TreeViewCheckBoxContainer = (props) => {
     nameField,
     childrenFieldName,
     selectedIds,
+    disabledIds,
+    disabledLevels,
     needToConvertEntry,
   } = props;
   const [dataSource, setDataSource] = useState([]);
   const flattenedTreeData = useRef([]);
 
   const handleCheckTreeItem = (item) => {
-    const { id, checked } = item;
-    const handleChecking = processCheckingItem(id, checked);
+    const { id, checked, level } = item;
+    const handleChecking = processCheckingItem(id, checked, level);
     handleChecking(flattenedTreeData.current);
 
     const treeInfo = getTreeInfo(flattenedTreeData.current);
+    const {
+      selectedIds: newSelectedIds,
+      selectedItems,
+      selectedIdsByLevelAndParent,
+    } = treeInfo;
 
     onCheck(
-      treeInfo.selectedIds,
-      treeInfo.selectedItems,
+      newSelectedIds,
+      selectedItems,
+      selectedIdsByLevelAndParent,
       flattenedTreeData.current
     );
   };
@@ -40,7 +48,9 @@ const TreeViewCheckBoxContainer = (props) => {
           idField,
           nameField,
           childrenFieldName,
-          selectedIds
+          selectedIds,
+          disabledIds,
+          disabledLevels
         )
       : data;
 
@@ -53,9 +63,13 @@ const TreeViewCheckBoxContainer = (props) => {
     nameField,
     childrenFieldName,
     selectedIds,
+    disabledIds,
+    disabledLevels,
   ]);
 
-  const expandedIds = flattenedTreeData.current.map((x) => `${x.id}`);
+  const expandedIds = flattenedTreeData.current.map(
+    (x) => `${x.level}-${x.id}`
+  );
 
   return (
     <TreeViewCheckBoxList
@@ -76,6 +90,12 @@ TreeViewCheckBoxContainer.propTypes = {
   selectedIds: PropTypes.arrayOf(
     PropTypes.oneOfType([PropTypes.string, PropTypes.number])
   ),
+  disabledIds: PropTypes.arrayOf(
+    PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+  ),
+  disabledLevels: PropTypes.arrayOf(
+    PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+  ),
 };
 
 TreeViewCheckBoxContainer.defaultProps = {
@@ -86,6 +106,8 @@ TreeViewCheckBoxContainer.defaultProps = {
   onCheck: () => [],
   needToConvertEntry: true,
   selectedIds: [],
+  disabledIds: [],
+  disabledLevels: [],
 };
 
 export default TreeViewCheckBoxContainer;

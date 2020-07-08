@@ -1,16 +1,28 @@
-export const getTreeInfo = flattenedData => {
+export const getTreeInfo = (flattenedData) => {
   const selectedItems = [];
-  const selectedIds = [];
   const selectedNames = [];
+  const selectedIds = [];
+
+  // sample for this data structure [level, parentId, [selectedId1, selectedId2]]
+  const selectedIdsByLevelAndParent = [];
 
   for (let i = 0; i < flattenedData.length; i++) {
     const item = flattenedData[i];
-    const { id, name, checked } = item;
+    const { id, name, checked, parent, level } = item;
 
     if (checked) {
       selectedItems.push(item);
       selectedIds.push(id);
       selectedNames.push(name);
+
+      const itemByLevelAndParent = selectedIdsByLevelAndParent.find(
+        (x) => x[0] === level && x[1] === parent
+      );
+      if (itemByLevelAndParent) {
+        itemByLevelAndParent[2].push(id);
+      } else {
+        selectedIdsByLevelAndParent.push([level, parent, [id]]);
+      }
     }
   }
 
@@ -18,5 +30,6 @@ export const getTreeInfo = flattenedData => {
     selectedItems,
     selectedIds,
     selectedNames,
+    selectedIdsByLevelAndParent,
   };
 };

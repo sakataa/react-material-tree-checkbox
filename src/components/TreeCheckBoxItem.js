@@ -5,22 +5,30 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 
 const TreeCheckBoxItem = (props) => {
-  const { id, name, checked, onChange, ...otherProps } = props;
+  const { id, name, checked, level, disabled, onChange, ...otherProps } = props;
 
   return (
     <TreeItem
       {...otherProps}
-      nodeId={`${id}`}
+      nodeId={`${level}-${id}`}
       label={
         <FormControlLabel
           control={
-            <Checkbox checked={!!checked} name={`${id}`} color="primary" />
+            <Checkbox
+              disabled={disabled}
+              checked={!!checked}
+              name={`${level}-${id}`}
+              color="primary"
+            />
           }
           label={name}
         />
       }
       onLabelClick={(event) => {
-        onChange({ target: { id, name, checked: !checked } });
+        if (!disabled) {
+          onChange({ target: { id, name, level, checked: !checked } });
+        }
+
         event.preventDefault();
       }}
     />
@@ -30,12 +38,15 @@ const TreeCheckBoxItem = (props) => {
 TreeCheckBoxItem.propTypes = {
   id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
   name: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+  level: PropTypes.number.isRequired,
+  disabled: PropTypes.bool.isRequired,
   checked: PropTypes.bool,
   onChange: PropTypes.func,
 };
 
 TreeCheckBoxItem.defaultProps = {
   checked: false,
+  onChange: () => {},
 };
 
 export default TreeCheckBoxItem;
