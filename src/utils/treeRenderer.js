@@ -7,21 +7,12 @@ export const renderTree = (dataSource, handleChange) => {
 
     if (children?.length) {
       return (
-        <TreeCheckBoxItem
-          {...commonProps}
-          key={commonProps.id}
-          onChange={handleChange}>
+        <TreeCheckBoxItem {...commonProps} key={commonProps.id} onChange={handleChange}>
           {renderTree(children, handleChange)}
         </TreeCheckBoxItem>
       );
     }
 
-    return (
-      <TreeCheckBoxItem
-        {...commonProps}
-        key={commonProps.id}
-        onChange={handleChange}
-      />
-    );
+    return <TreeCheckBoxItem {...commonProps} key={commonProps.id} onChange={handleChange} />;
   });
 };

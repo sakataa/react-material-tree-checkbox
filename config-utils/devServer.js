@@ -27,6 +27,11 @@ const devServerConfig = merge(config, {
       inject: true,
     }),
   ],
+  resolve: {
+    alias: {
+        'react-material-tree-checkbox': path.resolve(__dirname, '../src/components'),
+    },
+}
 });
 
 const compiler = webpack(devServerConfig);

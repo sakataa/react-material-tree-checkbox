@@ -10,17 +10,12 @@ export const convertToTreeData = (
   level = 0
 ) => {
   return data?.map((item) => {
-    const {
-      [idField]: id,
-      [nameField]: name,
-      [childrenField]: children,
-    } = item;
+    const { [idField]: id, [nameField]: name, [childrenField]: children } = item;
     const treeItem = {
       id,
       name,
       level,
-      disabled:
-        !!disabledIds?.includes(id) || !!disabledLevels?.includes(level),
+      disabled: !!disabledIds?.includes(id) || !!disabledLevels?.includes(level),
     };
     const hasChildren = !!children?.length;
 
@@ -64,11 +59,7 @@ export const flattenTreeData = (treeData, level = 0, parent = null) => {
       result.push(convertedItem);
 
       if (children?.length) {
-        const convertedChildren = flattenTreeData(
-          children,
-          level + 1,
-          convertedItem.id
-        );
+        const convertedChildren = flattenTreeData(children, level + 1, convertedItem.id);
         result.push(...convertedChildren);
       }
     }

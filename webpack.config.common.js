@@ -11,10 +11,7 @@ module.exports = {
   context: __dirname,
   resolve: {
     extensions: ['*', '.js', '.jsx'],
-    modules: [
-      path.resolve(__dirname, 'node_modules'),
-      path.resolve(__dirname, './src'),
-    ],
+    modules: [path.resolve(__dirname, 'node_modules'), path.resolve(__dirname, './src')],
   },
   entry: {
     index: './src/index.js',

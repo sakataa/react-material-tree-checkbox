@@ -32,7 +32,8 @@ const TreeViewCheckBoxList = (props) => {
       className={classes.root}
       defaultExpanded={expandedIds}
       defaultCollapseIcon={<CollapsedIcon />}
-      defaultExpandIcon={<ExpandedIcon />}>
+      defaultExpandIcon={<ExpandedIcon />}
+    >
       {tree}
     </TreeView>
   );
@@ -42,14 +43,11 @@ TreeViewCheckBoxList.propTypes = {
   dataSource: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-      name: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
-        .isRequired,
+      name: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
       children: PropTypes.arrayOf(
         PropTypes.shape({
-          id: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
-            .isRequired,
-          name: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
-            .isRequired,
+          id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+          name: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
           children: PropTypes.arrayOf(PropTypes.shape({})),
         })
       ),
@@ -57,9 +55,7 @@ TreeViewCheckBoxList.propTypes = {
     })
   ),
   onCheck: PropTypes.func,
-  expandedIds: PropTypes.arrayOf(
-    PropTypes.oneOfType([PropTypes.string, PropTypes.number])
-  ),
+  expandedIds: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number])),
 };
 
 TreeViewCheckBoxList.defaultProps = {

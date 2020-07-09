@@ -15,9 +15,7 @@ export const getTreeInfo = (flattenedData) => {
       selectedIds.push(id);
       selectedNames.push(name);
 
-      const itemByLevelAndParent = selectedIdsByLevelAndParent.find(
-        (x) => x[0] === level && x[1] === parent
-      );
+      const itemByLevelAndParent = selectedIdsByLevelAndParent.find((x) => x[0] === level && x[1] === parent);
       if (itemByLevelAndParent) {
         itemByLevelAndParent[2].push(id);
       } else {

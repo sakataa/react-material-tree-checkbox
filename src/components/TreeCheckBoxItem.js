@@ -13,14 +13,7 @@ const TreeCheckBoxItem = (props) => {
       nodeId={`${level}-${id}`}
       label={
         <FormControlLabel
-          control={
-            <Checkbox
-              disabled={disabled}
-              checked={!!checked}
-              name={`${level}-${id}`}
-              color="primary"
-            />
-          }
+          control={<Checkbox disabled={disabled} checked={!!checked} name={`${level}-${id}`} color="primary" />}
           label={name}
         />
       }

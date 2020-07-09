@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
-import TreeViewCheckBox from './components';
+import TreeViewCheckBox from 'react-material-tree-checkbox';
 
 const sampleData = [
   {
