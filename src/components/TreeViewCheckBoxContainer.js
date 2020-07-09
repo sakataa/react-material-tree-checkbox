@@ -17,13 +17,14 @@ const TreeViewCheckBoxContainer = (props) => {
     disabledIds,
     disabledLevels,
     needToConvertEntry,
+    cascadeChecking
   } = props;
   const [dataSource, setDataSource] = useState([]);
   const flattenedTreeData = useRef([]);
 
   const handleCheckTreeItem = (item) => {
     const { id, checked, level } = item;
-    const handleChecking = processCheckingItem(id, checked, level);
+    const handleChecking = processCheckingItem(id, checked, level, cascadeChecking);
     handleChecking(flattenedTreeData.current);
 
     const treeInfo = getTreeInfo(flattenedTreeData.current);
@@ -50,7 +51,8 @@ const TreeViewCheckBoxContainer = (props) => {
           childrenFieldName,
           selectedIds,
           disabledIds,
-          disabledLevels
+          disabledLevels,
+          cascadeChecking
         )
       : data;
 
@@ -65,6 +67,7 @@ const TreeViewCheckBoxContainer = (props) => {
     selectedIds,
     disabledIds,
     disabledLevels,
+    cascadeChecking
   ]);
 
   const expandedIds = flattenedTreeData.current.map(
@@ -96,6 +99,7 @@ TreeViewCheckBoxContainer.propTypes = {
   disabledLevels: PropTypes.arrayOf(
     PropTypes.oneOfType([PropTypes.string, PropTypes.number])
   ),
+  cascadeChecking: PropTypes.bool
 };
 
 TreeViewCheckBoxContainer.defaultProps = {
@@ -108,6 +112,7 @@ TreeViewCheckBoxContainer.defaultProps = {
   selectedIds: [],
   disabledIds: [],
   disabledLevels: [],
+  cascadeChecking: true
 };
 
 export default TreeViewCheckBoxContainer;

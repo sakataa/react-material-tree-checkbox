@@ -64,14 +64,17 @@ export const App = () => {
   const [selectedIds, setSelectedIds] = useState([1, 11, 2]);
   const [selectedItems, setSelectedItems] = useState([]);
   const [flattenedTreeData, setFlattenedTreeData] = useState([]);
+  const [treeDataByLevelAndParent, setTreeDataByLevelAndParent] = useState([]);
 
   const handleCheckTreeItem = (
     selectedItemIds,
     selectedItems,
+    treeDataByLevelAndParent,
     flattenedTreeData
   ) => {
     setSelectedIds(selectedItemIds);
     setSelectedItems(selectedItems);
+    setTreeDataByLevelAndParent(treeDataByLevelAndParent);
     setFlattenedTreeData(flattenedTreeData);
     console.log('selectedItemIds: ', selectedItemIds);
     console.log('selectedItems: ', selectedItems);
@@ -90,6 +93,7 @@ export const App = () => {
               nameField="name"
               childrenFieldName="children"
               selectedIds={selectedIds}
+              cascadeChecking={false}
             />
           </Paper>
         </Grid>
@@ -107,6 +111,13 @@ export const App = () => {
                     Id: {x.id} - Name: {x.name}
                   </li>
                 );
+              })}
+            </ul>
+
+            <h5>Tree data by level and parent</h5>
+            <ul>
+              {treeDataByLevelAndParent.map((x, index) => {
+                return <li key={index}>{JSON.stringify(x)}</li>;
               })}
             </ul>
 

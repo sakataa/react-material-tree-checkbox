@@ -1,5 +1,17 @@
-export const processCheckingItem = (itemId, itemChecked, level) => {
+export const processCheckingItem = (itemId, itemChecked, level, cascadeChecking) => {
   const handleUpdateTreeViewData = (flattenedTreeData) => {
+    const activeItem = flattenedTreeData.find(
+      (x) => x.id === itemId && x.level === level
+    );
+    if(!activeItem){
+      return;
+    }
+
+    activeItem.checked = itemChecked;
+    if(!cascadeChecking){
+      return;
+    }
+
     const children = getChildren(flattenedTreeData, itemId, level);
 
     // handle for children of checking item
@@ -19,24 +31,18 @@ export const processCheckingItem = (itemId, itemChecked, level) => {
       }
     }
 
-    const activeItem = flattenedTreeData.find(
-      (x) => x.id === itemId && x.level === level
+    const parents = getParents(
+      flattenedTreeData,
+      activeItem.parent,
+      activeItem.level
     );
-    if (activeItem) {
-      activeItem.checked = itemChecked;
-      const parents = getParents(
-        flattenedTreeData,
-        activeItem.parent,
-        activeItem.level
-      );
 
-      // handle for parent and upper of checking item
-      for (let i = 0; i < parents.length; i++) {
-        const parentItem = parents[i];
+    // handle for parent and upper of checking item
+    for (let i = 0; i < parents.length; i++) {
+      const parentItem = parents[i];
 
-        if (shouldChangeCheckingParent(flattenedTreeData, parentItem)) {
-          parentItem.checked = !parentItem.checked;
-        }
+      if (shouldChangeCheckingParent(flattenedTreeData, parentItem)) {
+        parentItem.checked = !parentItem.checked;
       }
     }
   };

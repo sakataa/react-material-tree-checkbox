@@ -6,6 +6,7 @@ export const convertToTreeData = (
   selectedIds,
   disabledIds,
   disabledLevels,
+  cascadeChecking,
   level = 0
 ) => {
   return data?.map((item) => {
@@ -32,13 +33,14 @@ export const convertToTreeData = (
         selectedIds,
         disabledIds,
         disabledLevels,
+        cascadeChecking,
         level + 1
       );
     }
 
     treeItem.checked =
       !treeItem.disabled &&
-      (hasChildren
+      (cascadeChecking && hasChildren
         ? treeItem.children.every((child) => selectedIds.includes(child.id))
         : !!selectedIds?.includes(id));
 
