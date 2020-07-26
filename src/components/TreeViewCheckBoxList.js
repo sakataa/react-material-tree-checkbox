@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import TreeView from '@material-ui/lab/TreeView';
@@ -15,24 +15,30 @@ const styles = {
 
 const TreeViewCheckBoxList = (props) => {
   const { classes, dataSource, onCheck, expandedIds } = props;
+  const [expanded, setExpanded] = React.useState([]);
+
+  useEffect(() => {
+    setExpanded(expandedIds);
+  }, [expandedIds]);
 
   const handleChange = (evt) => {
     const { id, name, checked, level } = evt.target;
     onCheck({ id, name, checked, level });
   };
 
-  if (!expandedIds?.length) {
-    return null;
-  }
+  const handleToggle = (event, nodeIds) => {
+    setExpanded(nodeIds);
+  };
 
   const tree = renderTree(dataSource, handleChange);
 
   return (
     <TreeView
       className={classes.root}
-      defaultExpanded={expandedIds}
+      expanded={expanded}
       defaultCollapseIcon={<CollapsedIcon />}
       defaultExpandIcon={<ExpandedIcon />}
+      onNodeToggle={handleToggle}
     >
       {tree}
     </TreeView>
